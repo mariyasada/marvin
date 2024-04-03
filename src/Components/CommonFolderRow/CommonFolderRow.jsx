@@ -4,6 +4,7 @@ import { MdArrowRight } from "react-icons/md";
 import { FaFolder, FaFolderOpen } from "react-icons/fa";
 import { useFolders } from "../../context/FolderContext";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import "./CommonFolderRow.css";
 
 const CommonFolderRow = ({ data, index }) => {
   const { selectedFolder, setSelectedFolder, setFoldersData, foldersData } =
@@ -35,21 +36,37 @@ const CommonFolderRow = ({ data, index }) => {
     return (
       <div
         draggable="true"
-        style={{ background: "red" }}
+        className={"folder_row"}
         onDragStart={(e) => handleDragStart(e, data)}
         onDragOver={handleDragOver}
         onDrop={(e) => handleDrop(e, data)}
       >
         <div
           style={{ display: "block" }}
+          className={isExpand ? "selected_folder" : ""}
           onClick={(e) => {
             setExpand(!isExpand);
             setSelectedFolder(data);
           }}
         >
-          {isExpand ? <IoMdArrowDropdown /> : <MdArrowRight />}
-          {isExpand ? <FaFolderOpen /> : <FaFolder />}
-          {data?.folder_name !== "" && data.folder_name}
+          <div className="folder_icon">
+            {isExpand ? (
+              <IoMdArrowDropdown color="gray" />
+            ) : (
+              <MdArrowRight color="gray" />
+            )}
+            <div>
+              {isExpand ? (
+                <FaFolderOpen color="#7AA6FE" />
+              ) : (
+                <FaFolder color="#7AA6FE" />
+              )}
+              {data?.folder_name !== "" && data.folder_name} (
+              {`
+              ${data?.sub_folder?.length} item`}
+              )
+            </div>
+          </div>
         </div>
 
         <div

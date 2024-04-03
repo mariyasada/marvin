@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import CommonFolderRow from "../CommonFolderRow/CommonFolderRow";
 import { useFolders } from "../../context/FolderContext";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import "./Sidebar.css";
 
 const Sidebar = () => {
   const { foldersData } = useFolders();
@@ -38,9 +38,11 @@ const Sidebar = () => {
   return (
     <div className="container">
       <input placeholder="Search Projects" />
-      {foldersData.sub_folder.map((folder, index) => (
-        <CommonFolderRow key={folder.id} data={folder} index={index} />
-      ))}
+      <div>
+        {foldersData.sub_folder.map((folder, index) => (
+          <CommonFolderRow key={folder.id} data={folder} index={index} />
+        ))}
+      </div>
     </div>
   );
 };

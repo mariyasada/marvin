@@ -5,8 +5,10 @@ import Sidebar from "./Components/Siderbar/Sidebar";
 function App() {
   return (
     <div className="App">
-      <Sidebar></Sidebar>
-      <ListComponent />
+      <div className="app_container">
+        <Sidebar></Sidebar>
+        <ListComponent />
+      </div>
     </div>
   );
 }
