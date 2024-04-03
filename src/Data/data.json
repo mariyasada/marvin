@@ -1,114 +1,169 @@
 {
-    "folder_name":"",
-    "sub_folder":[
-    {
-      "folder_name": "Folder 1",
-      "id": "f31db7fc-9b9a-4373-bb8e-79e4a52094e7",
-      "sub_folder": [
-        {
-          "folder_name": "Project-Folder 1.1",
-          "id": "d08c062c-383e-4ad3-af6c-9ab141e9bb2a",
-          "sub_folder": [
-            {
-              "folder_name": "Project-Folder 1.1.1",
-              "id": "bc44288e-6f6b-4095-9c5a-b8d615dfde85",
-              "sub_folder": []
-            },
-            {
-              "folder_name": "Project-Folder 1.1.2",
-              "id": "b5a0a0b5-b84c-4e3c-81b0-7df64f97fbb5",
-              "sub_folder": []
-            }
-          ]
-        },
-        {
-          "folder_name": "Project-Folder 1.2",
-          "id": "92082d11-cb79-4703-8b26-41c6843125f0",
-          "sub_folder": [
-            {
-              "folder_name": "Project-Folder 1.2.1",
-              "id": "80e937a0-93cd-41a6-bac6-02a4c6cc49e6",
-              "sub_folder": []
-            },
-            {
-              "folder_name": "Project-Folder 1.2.2",
-              "id": "b5bbf8c3-44a3-4a22-968b-9b9a97b9a3d4",
-              "sub_folder": []
-            }
-          ]
-        },
-        {
-          "folder_name": "Project-Folder 1.3",
-          "id": "6c9e6c69-16a4-461f-b07e-20bc6d6ecadb",
-          "sub_folder": [
-            {
-              "folder_name": "Project-Folder 1.3.1",
-              "id": "ea1c0d11-af36-44e3-b0b3-729e8a5c89e2",
-              "sub_folder": []
-            },
-            {
-              "folder_name": "Project-Folder 1.3.2",
-              "id": "beac9b97-2e77-460f-abe5-97f2da7e4734",
-              "sub_folder": []
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "folder_name": "Folder 2",
-      "id": "42bfdb31-11b3-4bc3-99c2-92a5e71b8780",
-      "sub_folder": [
-        {
-          "folder_name": "Project-Folder 2.1",
-          "id": "9a582a9c-27a3-471a-9f67-7b22975e81b8",
-          "sub_folder": [
-            {
-              "folder_name": "Project-Folder 2.1.1",
-              "id": "a1e2e1a5-d4f8-44e3-8f5c-9d53e4b435bc",
-              "sub_folder": []
-            },
-            {
-              "folder_name": "Project-Folder 2.1.2",
-              "id": "4f9c8b4b-d51f-468e-9dd1-0c507be1e131",
-              "sub_folder": []
-            }
-          ]
-        },
-        {
-          "folder_name": "Project-Folder 2.2",
-          "id": "f72b66fb-f5d9-43f3-a69c-61890e1908fb",
-          "sub_folder": [
-            {
-              "folder_name": "Project-Folder 2.2.1",
-              "id": "8b50e7b7-845a-4e15-9d79-471ce087b204",
-              "sub_folder": []
-            },
-            {
-              "folder_name": "Project-Folder 2.2.2",
-              "id": "1fbdb0a1-5d3a-4ccf-b30f-801d33f9a14f",
-              "sub_folder": []
-            }
-          ]
-        },
-        {
-          "folder_name": "Project-Folder 2.3",
-          "id": "7168d832-d049-4c9e-a1f2-b87de70ef2ab",
-          "sub_folder": [
-            {
-              "folder_name": "Project-Folder 2.3.1",
-              "id": "3a28b686-f573-465e-83cf-0dbf61b9c92d",
-              "sub_folder": []
-            },
-            {
-              "folder_name": "Project-Folder 2.3.2",
-              "id": "71a74110-b5b7-4f77-a543-68fc3f7480aa",
-              "sub_folder": []
-            }
-          ]
-        }
-      ]
-    }
-  ]
-  }
+    "folders": [
+      {
+        "folder_name": "Folder 1",
+        "id": "f31db7fc-9b9a-4373-bb8e-79e4a52094e7",
+        "parent_id":null,
+        "level":1,
+        "sub_folders": [
+          "d08c062c-383e-4ad3-af6c-9ab141e9bb2a",
+          "92082d11-cb79-4703-8b26-41c6843125f0",
+          "6c9e6c69-16a4-461f-b07e-20bc6d6ecadb"
+        ]
+      },
+      {
+        "folder_name": "Folder 2",
+        "parent_id":null,
+        "id": "42bfdb31-11b3-4bc3-99c2-92a5e71b8780",
+        "level":1,
+        "sub_folders": [
+          "9a582a9c-27a3-471a-9f67-7b22975e81b8",
+          "f72b66fb-f5d9-43f3-a69c-61890e1908fb",
+          "7168d832-d049-4c9e-a1f2-b87de70ef2ab"
+        ]
+      },
+      {
+        "folder_name": "Project-Folder 1.1",
+        "level":2,
+        "parent_id":"f31db7fc-9b9a-4373-bb8e-79e4a52094e7",
+        "id": "d08c062c-383e-4ad3-af6c-9ab141e9bb2a",
+        "sub_folders": [
+          "bc44288e-6f6b-4095-9c5a-b8d615dfde85",
+          "b5a0a0b5-b84c-4e3c-81b0-7df64f97fbb5"
+        ]
+      },
+      {
+        "folder_name": "Project-Folder 1.2",
+        "parent_id":"f31db7fc-9b9a-4373-bb8e-79e4a52094e7",
+        "level":2,
+        "id": "92082d11-cb79-4703-8b26-41c6843125f0",
+        "sub_folders": [
+          "80e937a0-93cd-41a6-bac6-02a4c6cc49e6",
+          "b5bbf8c3-44a3-4a22-968b-9b9a97b9a3d4"
+        ]
+      },
+      {
+        "folder_name": "Project-Folder 1.3",
+        "parent_id":"f31db7fc-9b9a-4373-bb8e-79e4a52094e7",
+        "level":2,
+        "id": "6c9e6c69-16a4-461f-b07e-20bc6d6ecadb",
+        "sub_folders": [
+          "ea1c0d11-af36-44e3-b0b3-729e8a5c89e2",
+          "beac9b97-2e77-460f-abe5-97f2da7e4734"
+        ]
+      },
+      {
+        "folder_name": "Project-Folder 2.1",
+        "parent_id":"42bfdb31-11b3-4bc3-99c2-92a5e71b8780",
+        "level":2,
+        "id": "9a582a9c-27a3-471a-9f67-7b22975e81b8",
+        "sub_folders": [
+          "a1e2e1a5-d4f8-44e3-8f5c-9d53e4b435bc",
+          "4f9c8b4b-d51f-468e-9dd1-0c507be1e131"
+        ]
+      },
+      {
+        "folder_name": "Project-Folder 2.2",
+        "parent_id":"42bfdb31-11b3-4bc3-99c2-92a5e71b8780",
+        "level":2,
+        "id": "f72b66fb-f5d9-43f3-a69c-61890e1908fb",
+        "sub_folders": [
+          "8b50e7b7-845a-4e15-9d79-471ce087b204",
+          "1fbdb0a1-5d3a-4ccf-b30f-801d33f9a14f"
+        ]
+      },
+      {
+        "folder_name": "Project-Folder 2.3",
+        "parent_id":"42bfdb31-11b3-4bc3-99c2-92a5e71b8780",
+        "level":2,
+        "id": "7168d832-d049-4c9e-a1f2-b87de70ef2ab",
+        "sub_folders": [
+          "3a28b686-f573-465e-83cf-0dbf61b9c92d",
+          "e63a42d5-d41b-4461-a0b1-10fe70b4f479"
+        ]
+      },
+      {
+        "folder_name": "Project-Folder 1.1.1",
+        "parent_id": "d08c062c-383e-4ad3-af6c-9ab141e9bb2a",
+        "level":3,
+        "id": "bc44288e-6f6b-4095-9c5a-b8d615dfde85",
+        "sub_folders": []
+      },
+      {
+        "folder_name": "Project-Folder 1.1.2",
+        "parent_id": "d08c062c-383e-4ad3-af6c-9ab141e9bb2a",
+        "level":3,
+        "id": "b5a0a0b5-b84c-4e3c-81b0-7df64f97fbb5",
+        "sub_folders": []
+      },
+      {
+        "folder_name": "Project-Folder 1.2.1",
+        "parent_id": "92082d11-cb79-4703-8b26-41c6843125f0",
+        "level":3,
+        "id": "80e937a0-93cd-41a6-bac6-02a4c6cc49e6",
+        "sub_folders": []
+      },
+      {
+        "folder_name": "Project-Folder 1.2.2",
+        "parent_id": "92082d11-cb79-4703-8b26-41c6843125f0",
+        "level":3,
+        "id": "b5bbf8c3-44a3-4a22-968b-9b9a97b9a3d4",
+        "sub_folders": []
+      },
+      {
+        "folder_name": "Project-Folder 1.3.1",
+        "level":3,
+        "parent_id":"6c9e6c69-16a4-461f-b07e-20bc6d6ecadb",
+        "id": "ea1c0d11-af36-44e3-b0b3-729e8a5c89e2",
+        "sub_folders": []
+      },
+      {
+        "folder_name": "Project-Folder 1.3.2",
+        "parent_id":"6c9e6c69-16a4-461f-b07e-20bc6d6ecadb",
+        "level":3,
+        "id": "beac9b97-2e77-460f-abe5-97f2da7e4734",
+        "sub_folders": []
+      },
+      {
+        "folder_name": "Project-Folder 2.1.1",
+        "id": "a1e2e1a5-d4f8-44e3-8f5c-9d53e4b435bc",
+        "parent_id":"9a582a9c-27a3-471a-9f67-7b22975e81b8",
+        "level":3,
+        "sub_folders": []
+      },
+      {
+        "folder_name": "Project-Folder 2.1.2",
+        "level":3,
+        "id": "4f9c8b4b-d51f-468e-9dd1-0c507be1e131",
+        "parent_id":"9a582a9c-27a3-471a-9f67-7b22975e81b8",
+        "sub_folders": []
+      },
+      {
+        "folder_name": "Project-Folder 2.2.1",
+        "id": "8b50e7b7-845a-4e15-9d79-471ce087b204",
+        "parent_id": "f72b66fb-f5d9-43f3-a69c-61890e1908fb",
+        "sub_folders": [],
+        "level":3
+      },
+      {
+        "folder_name": "Project-Folder 2.2.2",
+        "id": "1fbdb0a1-5d3a-4ccf-b30f-801d33f9a14f",
+        "parent_id": "f72b66fb-f5d9-43f3-a69c-61890e1908fb",
+        "sub_folders": [],"level":3
+      },
+      {
+        "folder_name": "Project-Folder 2.3.1",
+        "id": "3a28b686-f573-465e-83cf-0dbf61b9c92d",
+        "parent_id": "7168d832-d049-4c9e-a1f2-b87de70ef2ab",
+        "sub_folders": [],
+        "level":3
+      },
+      {
+        "folder_name": "Project-Folder 2.3.2",
+        "id": "e63a42d5-d41b-4461-a0b1-10fe70b4f479",
+        "parent_id": "7168d832-d049-4c9e-a1f2-b87de70ef2ab",
+        "sub_folders": [],
+        "level":3
+      }
+    ]}
   

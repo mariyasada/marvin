@@ -1,8 +1,9 @@
 .Listcontainer{
-    width:70%;
+    width:80%;
     display: flex;
     flex-direction: column;
     gap:4rem;
+    height: 400px;
   
 }
 .title{
@@ -15,7 +16,7 @@
 }
 .list_item{
     height:60px;
-    width: 100%;
+    width: 97%;
     display: flex;
     justify-content: space-between;
     background: white;
