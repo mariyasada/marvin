@@ -7,10 +7,22 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import "./CommonFolderRow.css";
 
 const CommonFolderRow = ({ data, index }) => {
-  const { selectedFolder, setSelectedFolder, setFoldersData, foldersData } =
-    useFolders();
+  const {
+    selectedFolder,
+    setSelectedFolder,
+    setFoldersData,
+    foldersData,
+    draggedItem,
+    setDraggedItem,
+  } = useFolders();
   const [isExpand, setExpand] = useState(false);
-  const [draggedItem, setDraggedItem] = useState(null);
+
+  // handle opne and close action
+  const handleClick = (e) => {
+    e.preventDefault();
+    setExpand(!isExpand);
+    setSelectedFolder(data);
+  };
 
   const handleDragStart = (e, folder) => {
     setDraggedItem(folder);
@@ -20,50 +32,64 @@ const CommonFolderRow = ({ data, index }) => {
   const handleDragOver = (e) => {
     e.preventDefault();
   };
-  useEffect(() => {
-    console.log(draggedItem, "check");
-  }, [draggedItem]);
 
-  const handleDrop = (e, targetFolder) => {
+  const findSourceFolder = (data, draggedItem) => {
+    console.log(draggedItem, "item check", data);
+    if (draggedItem.level === 3) {
+      return data?.find((f) => f.id === draggedItem);
+    }
+  };
+
+  const handleDrop = (e, targetFolder, draggedItem) => {
     e.stopPropagation();
     e.preventDefault();
-    console.log(targetFolder, draggedItem, "check target folder");
 
-    // Ensure the dragged item exists
     if (!draggedItem) return;
 
-    // Move the dragged item to the target folder
-    // Update the folder structure
-    const updatedFoldersData = [...foldersData];
-    console.log(updatedFoldersData, "folder dat");
     // Find the source folder from which the dragged item is being dragged
-    const sourceFolder = updatedFoldersData.find((folder) => {
+    const sourceFolder = foldersData.find((folder) => {
       return folder.sub_folder.some(
         (subfolder) => subfolder.id === draggedItem.id
       );
     });
+    // const source = findSourceFolder(foldersData, draggedItem);
 
-    console.log(sourceFolder, "check source folder");
+    if (!sourceFolder) return;
 
-    if (sourceFolder) {
-      // Remove the dragged item from its original parent folder
-      sourceFolder.sub_folder = sourceFolder.sub_folder.filter(
+    // copy of source folder
+    const updatedSourceFolder = {
+      ...sourceFolder,
+      sub_folder: sourceFolder.sub_folder.filter(
         (subfolder) => subfolder.id !== draggedItem.id
-      );
+      ),
+    };
 
-      // Add the dragged item to the target folder
-      targetFolder.sub_folder.push(draggedItem);
-      console.log(updatedFoldersData, "check");
+    // Adding to the target folder
+    const updatedTargetFolder = {
+      ...targetFolder,
+      sub_folder: targetFolder.sub_folder.concat(draggedItem),
+    };
 
-      // Update the state with the modified folders data
-      setFoldersData(updatedFoldersData);
+    const updatedFoldersData = foldersData.map((folder) =>
+      folder.id === updatedSourceFolder.id
+        ? updatedSourceFolder
+        : folder.id === updatedTargetFolder.id
+        ? updatedTargetFolder
+        : folder
+    );
+
+    // check which folder is selected
+
+    if (selectedFolder.id === sourceFolder.id) {
+      setSelectedFolder(updatedSourceFolder);
+    } else if (selectedFolder.id === targetFolder.id) {
+      setSelectedFolder(updatedTargetFolder);
     }
-
-    // Reset draggedItem state
+    setFoldersData(updatedFoldersData);
     setDraggedItem(null);
   };
 
-  if (data?.sub_folder?.length > 0) {
+  if (data?.sub_folder) {
     return (
       <div
         draggable="true"
@@ -72,17 +98,14 @@ const CommonFolderRow = ({ data, index }) => {
           handleDragStart(e, data);
         }}
         onDragOver={handleDragOver}
-        onDrop={(e) => handleDrop(e, data)}
+        onDrop={(e) => handleDrop(e, data, draggedItem)}
       >
         <div
           style={{ display: "block" }}
           className={
             isExpand && selectedFolder.id === data.id ? "selected_folder" : ""
           }
-          onClick={(e) => {
-            setExpand(!isExpand);
-            setSelectedFolder(data);
-          }}
+          onClick={handleClick}
         >
           <div className="folder_icon">
             {isExpand ? (
@@ -127,7 +150,7 @@ const CommonFolderRow = ({ data, index }) => {
         draggable="true"
         onDragStart={(e) => handleDragStart(e, data)}
         onDragOver={handleDragOver}
-        onDrop={(e) => handleDrop(e, data)}
+        onDrop={(e) => handleDrop(e, data, draggedItem)}
       >
         {data?.folder_name}
       </div>

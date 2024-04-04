@@ -39,7 +39,7 @@ const Sidebar = () => {
     <div className="container">
       <input placeholder="Search Projects" />
       <div>
-        {foldersData.sub_folder.map((folder, index) => (
+        {foldersData?.map((folder, index) => (
           <CommonFolderRow key={folder.id} data={folder} index={index} />
         ))}
       </div>
