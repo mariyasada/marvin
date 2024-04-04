@@ -119,10 +119,11 @@ const CommonFolderRow = ({ data, index }) => {
               ) : (
                 <FaFolder color="#7AA6FE" />
               )}
-              {data?.folder_name !== "" && data.folder_name} (
-              {`
-              ${data?.sub_folder?.length} item`}
-              )
+              {data?.folder_name !== "" && data.folder_name}
+              {isExpand &&
+                selectedFolder.id === data.id &&
+                `
+             (${data?.sub_folder?.length} item)`}
             </div>
           </div>
         </div>
