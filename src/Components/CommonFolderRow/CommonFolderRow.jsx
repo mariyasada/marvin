@@ -96,20 +96,6 @@ const CommonFolderRow = ({ data, index }) => {
         sub_folder: targetFolder.sub_folder.concat(draggedItem),
       };
 
-      // const updatedFoldersData = foldersData.map((folder) =>
-      //   folder.id === updatedSourceFolder.id
-      //     ? updatedSourceFolder
-
-      //     : folder.id === updatedTargetFolder.id
-      //     ? updatedTargetFolder
-      //     : folder.sub_folder.some((sf) => sf.id === updatedTargetFolder.id)
-      //     ? {
-      //         ...folder,
-      //         sub_folder: folder?.sub_folder?.map((sbf) =>
-      //           sbf.id === updatedTargetFolder.id ? updatedTargetFolder : sbf
-      //         ),
-      //       }
-      //     : folder
       const updatedFoldersData = foldersData.map((folder) =>
         folder.id === updatedSourceFolder.id
           ? updatedSourceFolder
@@ -143,25 +129,6 @@ const CommonFolderRow = ({ data, index }) => {
         sub_folder: targetFolder.sub_folder.concat(draggedItem),
       };
 
-      // const updatedFoldersData = foldersData.map((folder) =>
-      //   folder.sub_folder.some((f) => f.id === updatedSourceFolder.id)
-      //     ? {
-      //         ...folder,
-      //         sub_folder: folder?.sub_folder?.map((sbf) =>
-      //           sbf.id === updatedSourceFolder.id ? updatedSourceFolder : sbf
-      //         ),
-      //       }
-      //     : folder.id === updatedTargetFolder.id
-      //     ? updatedTargetFolder
-      //     : folder.sub_folder.some((f) => f.id === updatedTargetFolder.id)
-      //     ? {
-      //         ...folder,
-      //         sub_folder: folder?.sub_folder?.map((sbf) =>
-      //           sbf.id === updatedTargetFolder.id ? updatedTargetFolder : sbf
-      //         ),
-      //       }
-      //     : folder
-      // );
       const updatedFoldersData = foldersData.map((folder) =>
         folder.sub_folder.some((f) => f.id === updatedSourceFolder.id)
           ? {
