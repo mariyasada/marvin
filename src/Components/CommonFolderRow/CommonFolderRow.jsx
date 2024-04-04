@@ -90,10 +90,12 @@ const CommonFolderRow = ({ data, index }) => {
         ),
       };
 
+      const updatedDraggedItem = { ...draggedItem, parent_id: targetFolder.id };
+
       // Adding to the target folder
       const updatedTargetFolder = {
         ...targetFolder,
-        sub_folder: targetFolder.sub_folder.concat(draggedItem),
+        sub_folder: targetFolder.sub_folder.concat(updatedDraggedItem),
       };
 
       const updatedFoldersData = foldersData.map((folder) =>
@@ -113,6 +115,7 @@ const CommonFolderRow = ({ data, index }) => {
       setDraggedItem(null);
     } else if (draggedItem.level === 3) {
       const sourceFolder = findParentFolder(e, foldersData, draggedItem);
+
       if (!sourceFolder) return;
 
       // copy of parent folder
@@ -123,10 +126,12 @@ const CommonFolderRow = ({ data, index }) => {
         ),
       };
 
+      const updatedDraggedItem = { ...draggedItem, parent_id: targetFolder.id };
+
       // Adding to the target folder
       const updatedTargetFolder = {
         ...targetFolder,
-        sub_folder: targetFolder.sub_folder.concat(draggedItem),
+        sub_folder: targetFolder.sub_folder.concat(updatedDraggedItem),
       };
 
       const updatedFoldersData = foldersData.map((folder) =>
