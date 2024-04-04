@@ -33,10 +33,36 @@ const CommonFolderRow = ({ data, index }) => {
     e.preventDefault();
   };
 
-  const findSourceFolder = (data, draggedItem) => {
-    console.log(draggedItem, "item check", data);
-    if (draggedItem.level === 3) {
-      return data?.find((f) => f.id === draggedItem);
+  const findParentFolder = (e, data, draggedItem) => {
+    e.stopPropagation();
+    let parentFolder = null;
+    data.forEach((folder) => {
+      // Find the subfolder in the current folder that matches the parent_id of the draggedItem
+      const subfolder = folder.sub_folder.find(
+        (subfolder) => subfolder.id === draggedItem.parent_id
+      );
+
+      // If the subfolder is found, assign it to parentFolder
+      if (subfolder) {
+        parentFolder = subfolder;
+        return;
+      }
+    });
+    return parentFolder;
+  };
+
+  // creating one function which recursively check the targetfolder in su folders
+
+  const updateDataRecursively = (folder, targetData) => {
+    if (folder.id === targetData.id) {
+      return targetData;
+    } else {
+      return {
+        ...folder,
+        sub_folder: folder.sub_folder.map((subFolder) =>
+          updateDataRecursively(subFolder, targetData)
+        ),
+      };
     }
   };
 
@@ -47,46 +73,116 @@ const CommonFolderRow = ({ data, index }) => {
     if (!draggedItem) return;
 
     // Find the source folder from which the dragged item is being dragged
-    const sourceFolder = foldersData.find((folder) => {
-      return folder.sub_folder.some(
-        (subfolder) => subfolder.id === draggedItem.id
+    if (draggedItem.level === 2) {
+      const sourceFolder = foldersData.find((folder) => {
+        return folder.sub_folder.some(
+          (subfolder) => subfolder.id === draggedItem.id
+        );
+      });
+
+      if (!sourceFolder) return;
+
+      // copy of source folder
+      const updatedSourceFolder = {
+        ...sourceFolder,
+        sub_folder: sourceFolder.sub_folder.filter(
+          (subfolder) => subfolder.id !== draggedItem.id
+        ),
+      };
+
+      // Adding to the target folder
+      const updatedTargetFolder = {
+        ...targetFolder,
+        sub_folder: targetFolder.sub_folder.concat(draggedItem),
+      };
+
+      // const updatedFoldersData = foldersData.map((folder) =>
+      //   folder.id === updatedSourceFolder.id
+      //     ? updatedSourceFolder
+
+      //     : folder.id === updatedTargetFolder.id
+      //     ? updatedTargetFolder
+      //     : folder.sub_folder.some((sf) => sf.id === updatedTargetFolder.id)
+      //     ? {
+      //         ...folder,
+      //         sub_folder: folder?.sub_folder?.map((sbf) =>
+      //           sbf.id === updatedTargetFolder.id ? updatedTargetFolder : sbf
+      //         ),
+      //       }
+      //     : folder
+      const updatedFoldersData = foldersData.map((folder) =>
+        folder.id === updatedSourceFolder.id
+          ? updatedSourceFolder
+          : updateDataRecursively(folder, updatedTargetFolder)
       );
-    });
-    // const source = findSourceFolder(foldersData, draggedItem);
 
-    if (!sourceFolder) return;
+      // check which folder is selected
 
-    // copy of source folder
-    const updatedSourceFolder = {
-      ...sourceFolder,
-      sub_folder: sourceFolder.sub_folder.filter(
-        (subfolder) => subfolder.id !== draggedItem.id
-      ),
-    };
+      if (selectedFolder.id === sourceFolder.id) {
+        setSelectedFolder(updatedSourceFolder);
+      } else if (selectedFolder.id === targetFolder.id) {
+        setSelectedFolder(updatedTargetFolder);
+      }
+      setFoldersData(updatedFoldersData);
+      setDraggedItem(null);
+    } else if (draggedItem.level === 3) {
+      const sourceFolder = findParentFolder(e, foldersData, draggedItem);
+      if (!sourceFolder) return;
 
-    // Adding to the target folder
-    const updatedTargetFolder = {
-      ...targetFolder,
-      sub_folder: targetFolder.sub_folder.concat(draggedItem),
-    };
+      // copy of parent folder
+      const updatedSourceFolder = {
+        ...sourceFolder,
+        sub_folder: sourceFolder.sub_folder.filter(
+          (subfolder) => subfolder.id !== draggedItem.id
+        ),
+      };
 
-    const updatedFoldersData = foldersData.map((folder) =>
-      folder.id === updatedSourceFolder.id
-        ? updatedSourceFolder
-        : folder.id === updatedTargetFolder.id
-        ? updatedTargetFolder
-        : folder
-    );
+      // Adding to the target folder
+      const updatedTargetFolder = {
+        ...targetFolder,
+        sub_folder: targetFolder.sub_folder.concat(draggedItem),
+      };
 
-    // check which folder is selected
+      // const updatedFoldersData = foldersData.map((folder) =>
+      //   folder.sub_folder.some((f) => f.id === updatedSourceFolder.id)
+      //     ? {
+      //         ...folder,
+      //         sub_folder: folder?.sub_folder?.map((sbf) =>
+      //           sbf.id === updatedSourceFolder.id ? updatedSourceFolder : sbf
+      //         ),
+      //       }
+      //     : folder.id === updatedTargetFolder.id
+      //     ? updatedTargetFolder
+      //     : folder.sub_folder.some((f) => f.id === updatedTargetFolder.id)
+      //     ? {
+      //         ...folder,
+      //         sub_folder: folder?.sub_folder?.map((sbf) =>
+      //           sbf.id === updatedTargetFolder.id ? updatedTargetFolder : sbf
+      //         ),
+      //       }
+      //     : folder
+      // );
+      const updatedFoldersData = foldersData.map((folder) =>
+        folder.sub_folder.some((f) => f.id === updatedSourceFolder.id)
+          ? {
+              ...folder,
+              sub_folder: folder?.sub_folder?.map((sbf) =>
+                sbf.id === updatedSourceFolder.id ? updatedSourceFolder : sbf
+              ),
+            }
+          : updateDataRecursively(folder, updatedTargetFolder)
+      );
+      // check which folder is selected
 
-    if (selectedFolder.id === sourceFolder.id) {
-      setSelectedFolder(updatedSourceFolder);
-    } else if (selectedFolder.id === targetFolder.id) {
-      setSelectedFolder(updatedTargetFolder);
+      if (selectedFolder.id === sourceFolder.id) {
+        setSelectedFolder(updatedSourceFolder);
+      } else if (selectedFolder.id === targetFolder.id) {
+        setSelectedFolder(updatedTargetFolder);
+      }
+      setFoldersData(updatedFoldersData);
+      setDraggedItem(null);
+    } else {
     }
-    setFoldersData(updatedFoldersData);
-    setDraggedItem(null);
   };
 
   if (data?.sub_folder) {
